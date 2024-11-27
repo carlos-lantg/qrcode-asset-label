@@ -10,12 +10,12 @@ app = FastAPI()
 async def generate_label(
     code: str,
     url: str,
-    width_mm: float = Query(45.7, description="Width of the label in millimeters"),
-    height_mm: float = Query(21.2, description="Height of the label in millimeters"),
-    font_size: int = Query(24, description="Font size for the text")
+    width_mm: float ,
+    height_mm: float,
+    font_size: int
 ):
     # Crear el código QR
-    qr = qrcode.QRCode(box_size=4, border=2)
+    qr = qrcode.QRCode(box_size=4, border=2, error_correction=qrcode.constants.ERROR_CORRECT_L)
     qr.add_data(url)
     qr.make(fit=True)
     qr_img = qr.make_image(fill_color="black", back_color="white")
